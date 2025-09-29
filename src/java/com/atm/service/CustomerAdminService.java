@@ -1,3 +1,5 @@
+package java.com.atm.service;
+
 public class CustomerAdminService {
 
     void registerCustomer(CustomerInput input){

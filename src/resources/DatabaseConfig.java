@@ -1,3 +1,5 @@
+package resources;
+
 public class DatabaseConfig {
 
     private final String URL;

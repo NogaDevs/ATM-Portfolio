@@ -1,3 +1,7 @@
+package java.com.atm.dao;
+
+import resources.DatabaseConfig;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

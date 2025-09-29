@@ -1,4 +1,4 @@
-package exception;
+package java.com.atm.exception;
 
 public class DatabaseException extends RuntimeException {
     public DatabaseException(String message, Throwable cause) {

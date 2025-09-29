@@ -1,6 +1,10 @@
+package java.com.atm.dao;
+
 import java.math.BigDecimal;
 import java.sql.*;
-import exception.*;
+
+import java.com.atm.domain.Customer;
+import java.com.atm.exception.*;
 
 
 
@@ -25,7 +29,28 @@ public class CustomerDAO {
             throw new CustomerNotFoundException("User not found: ", e);
         }
     }
+    public BigDecimal getBalanceById(int id) {
+        try (Connection con =  DB.connect()) {
 
+            // QUERY balance
+            PreparedStatement myStmtBalance;
+            myStmtBalance = con.prepareStatement("SELECT * FROM customers WHERE customer_id = ?");
+            myStmtBalance.setInt(1, id);
+            try (ResultSet resultBalance = myStmtBalance.executeQuery()) {
+                if (resultBalance.next()) {
+                    return resultBalance.getBigDecimal("balance");
+                } else {
+                    throw new DatabaseException("User not found! Couldn't fetch customer balance.");
+                }
+            }
+            catch (SQLException e){
+                throw new DatabaseException("There was a problem trying to fetch the data from the database: ", e);
+            }
+        }
+        catch(SQLException e){
+            throw new DatabaseException("There was a problem connecting the database: ", e);
+        }
+    }
     public Customer getCustomerById(int id) {
         try (Connection con =  DB.connect()){
 
@@ -37,11 +62,10 @@ public class CustomerDAO {
                 if (resultSet.next()) {
                     String name = resultSet.getString(2);
                     String cardNumber = resultSet.getString(3);
-                    String pin = resultSet.getString(4);
                     String email = resultSet.getString(5);
                     BigDecimal balance = resultSet.getBigDecimal(6);
 
-                    return new Customer(id, name, cardNumber, pin, email, balance);
+                    return new Customer(id, name, cardNumber, email, balance);
                 } else {
                     throw new CustomerNotFoundException("No such user id is already registered");
                 }
@@ -51,7 +75,6 @@ public class CustomerDAO {
             throw new DatabaseException("Database error:", e);
         }
     }
-
     public BigDecimal adjustBalanceReturningBalance(int id, BigDecimal delta, Connection con) throws DatabaseException {
         // UPDATE balance depending on withdraw/deposit. As it's validated on Account Service, no need for further check aside from - or + amount.
         String query;
@@ -78,7 +101,7 @@ public class CustomerDAO {
                         myStmtId.setInt(1, id);
                         try (ResultSet resultSetForId = myStmtId.executeQuery()) {
                             if (!resultSetForId.next()) {
-                                throw new CustomerNotFoundException("Error! Customer not found.");
+                                throw new CustomerNotFoundException("Error! java.com.atm.domain.Customer not found.");
                             } else {
                                 throw new InvalidAmountException("There are not enough funds.");
                             }
@@ -96,26 +119,4 @@ public class CustomerDAO {
         }
     }
 
-    public BigDecimal getBalanceById(int id) {
-        try (Connection con =  DB.connect()) {
-
-            // QUERY balance
-            PreparedStatement myStmtBalance;
-            myStmtBalance = con.prepareStatement("SELECT * FROM customers WHERE customer_id = ?");
-            myStmtBalance.setInt(1, id);
-            try (ResultSet resultBalance = myStmtBalance.executeQuery()) {
-                if (resultBalance.next()) {
-                    return resultBalance.getBigDecimal("balance");
-                } else {
-                    throw new DatabaseException("User not found! Couldn't fetch customer balance.");
-                }
-            }
-            catch (SQLException e){
-                throw new DatabaseException("There was a problem trying to fetch the data from the database: ", e);
-            }
-        }
-        catch(SQLException e){
-            throw new DatabaseException("There was a problem connecting the database: ", e);
-        }
-    }
 }
