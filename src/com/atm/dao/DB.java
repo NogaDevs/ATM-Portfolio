@@ -1,4 +1,4 @@
-package java.com.atm.dao;
+package com.atm.dao;
 
 import resources.DatabaseConfig;
 

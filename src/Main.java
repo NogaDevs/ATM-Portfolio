@@ -1,17 +1,17 @@
-import java.com.atm.dao.CustomerDAO;
-import java.com.atm.service.AccountService;
+import com.atm.dao.CustomerDAO;
+import com.atm.domain.Customer;
+import com.atm.service.AccountService;
 
-import java.math.BigDecimal;
+import com.atm.service.CustomerAdminService;
 
 public class Main {
     public static void main(String[] args) {
         CustomerDAO dao = new CustomerDAO();
         AccountService accService = new AccountService(dao);
-        int userid = dao.findByCardNumber("2424-2424-2424-2424");
+        Customer userid = dao.getCustomerById(1);
 
-        BigDecimal amount = BigDecimal.valueOf(20000);
-        BigDecimal newBalance;
-        newBalance = accService.withdraw(userid, amount);
-        System.out.println(newBalance);
+        String plainPin = "4124";
+        String hashPin = CustomerAdminService.encodePin(plainPin);
+        System.out.println(hashPin);
     }
 }

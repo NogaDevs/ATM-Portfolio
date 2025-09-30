@@ -1,4 +1,4 @@
-package java.com.atm.dto;
+package com.atm.dto;
 import java.math.BigDecimal;
 
 public class CustomerCreateRequest {

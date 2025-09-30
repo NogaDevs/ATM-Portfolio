@@ -1,12 +1,17 @@
-package java.com.atm.service;
+package com.atm.service;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import java.com.atm.dao.CustomerDAO;
-import java.com.atm.dao.DB;
-import java.com.atm.exception.*;
+import com.atm.dao.CustomerDAO;
+import com.atm.dao.DB;
+import com.atm.exception.CustomerNotFoundException;
+import com.atm.exception.DatabaseException;
+import com.atm.exception.InsufficientFundsException;
+import com.atm.exception.InvalidAmountException;
+
+import com.atm.exception.*;
 
 
 public class AccountService {

@@ -1,4 +1,4 @@
-package java.com.atm.exception;
+package com.atm.exception;
 
 public class CustomerNotFoundException extends RuntimeException {
     public CustomerNotFoundException(String message) {

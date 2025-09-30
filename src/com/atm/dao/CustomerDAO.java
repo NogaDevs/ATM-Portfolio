@@ -1,16 +1,16 @@
-package java.com.atm.dao;
+package com.atm.dao;
 
 import java.math.BigDecimal;
 import java.sql.*;
 
-import java.com.atm.domain.Customer;
-import java.com.atm.exception.*;
+import com.atm.domain.Customer;
+import com.atm.exception.*;
 
 
 
 public class CustomerDAO {
 
-    public int findByCardNumber(String cardNumber) {
+    public int getIdByCardNumber(String cardNumber) {
         try (Connection con =  DB.connect()){
 
             // SELECT query
@@ -56,14 +56,14 @@ public class CustomerDAO {
 
             // SELECT query
             PreparedStatement myStmt;
-            myStmt = con.prepareStatement("SELECT * FROM customers WHERE costumer_id = ?");
+            myStmt = con.prepareStatement("SELECT * FROM customers WHERE customer_id = ?");
             myStmt.setInt(1, id);
             try (ResultSet resultSet = myStmt.executeQuery()) {
                 if (resultSet.next()) {
-                    String name = resultSet.getString(2);
-                    String cardNumber = resultSet.getString(3);
-                    String email = resultSet.getString(5);
-                    BigDecimal balance = resultSet.getBigDecimal(6);
+                    String name = resultSet.getString("customer_name");
+                    String cardNumber = resultSet.getString("card_number");
+                    String email = resultSet.getString("email");
+                    BigDecimal balance = resultSet.getBigDecimal("balance");
 
                     return new Customer(id, name, cardNumber, email, balance);
                 } else {

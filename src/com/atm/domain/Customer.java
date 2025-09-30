@@ -1,4 +1,4 @@
-package java.com.atm.domain;
+package com.atm.domain;
 
 import java.math.BigDecimal;
 

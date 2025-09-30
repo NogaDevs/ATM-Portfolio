@@ -1,4 +1,4 @@
-package java.com.atm.exception;
+package com.atm.exception;
 
 public class InvalidAmountException extends RuntimeException {
     public InvalidAmountException(String message, Throwable cause) {
