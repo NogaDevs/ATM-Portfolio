@@ -8,7 +8,7 @@ public class CustomerCreateRequest {
     private final String email;
     private final BigDecimal startingBalance;
 
-    CustomerCreateRequest (String name, String cardNumber, String planPin, String email, BigDecimal startingBalance) {
+    public CustomerCreateRequest(String name, String cardNumber, String planPin, String email, BigDecimal startingBalance) {
         this.name = name;
         this.cardNumber = cardNumber;
         this.planPin = planPin;

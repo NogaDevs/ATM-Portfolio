@@ -1,83 +1,43 @@
 package com.atm.service;
-
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import com.atm.dao.CustomerDAO;
-import com.atm.dao.DB;
 import com.atm.exception.CustomerNotFoundException;
-import com.atm.exception.DatabaseException;
 import com.atm.exception.InsufficientFundsException;
 import com.atm.exception.InvalidAmountException;
 
-import com.atm.exception.*;
-
 
 public class AccountService {
-    private final CustomerDAO customerDAO;
 
-    public AccountService(CustomerDAO customerDAO) {
-        this.customerDAO = customerDAO;
-    }
+    private static final CustomerDAO CUSTOMER_DAO = new CustomerDAO();
 
     public BigDecimal deposit(int customerId, BigDecimal amount) {
+
         BigDecimal newBalance;
-        try(Connection con = DB.connect()) {
-            try {
-                con.setAutoCommit(false);
-                if (amount == null) {
-                    throw new InvalidAmountException("Invalid input.");
-                } else if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-                    throw new InvalidAmountException("You can't deposit zero or less dollars.");
-                } else if (customerId <= 0) {
-                    throw new CustomerNotFoundException("Invalid user ID.");
-                } else {
-                newBalance = customerDAO.adjustBalanceReturningBalance(customerId, amount, con);
-                con.commit();
-                return newBalance;
-                }
-            }
-            catch (SQLException e) {
-                try {con.rollback();
-                    throw new DatabaseException("Deposit failed: ");}
-                catch (SQLException rb) {
-                    throw new DatabaseException("Deposit failed: ", rb);
-                }
-            }
-        }
-        catch (SQLException e) {
-            throw new DatabaseException("Connection to the database failed: ", e);
+
+        if (amount == null) {
+            throw new InvalidAmountException("Amount can't be blank.");
+        } else if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidAmountException("You can't deposit zero or less dollars.");
+        } else if (customerId <= 0) {
+            throw new CustomerNotFoundException("Invalid user ID.");
+        } else {
+            newBalance = CUSTOMER_DAO.adjustBalanceReturningBalance(customerId, amount);
+            return newBalance;
         }
     }
     public BigDecimal withdraw(int customerId, BigDecimal amount) {
-        BigDecimal newBalance = null;
-        try(Connection con = DB.connect()) {
-            try {
-                con.setAutoCommit(false);
-                if (amount == null) {
-                    throw new InvalidAmountException("Invalid input.");
-                } else if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-                    throw new InsufficientFundsException("You can't withdraw zero or less dollars.");
-                } else if (customerId <= 0) {
-                    throw new CustomerNotFoundException("Invalid user ID.");
-                } else {
-                    newBalance = customerDAO.adjustBalanceReturningBalance(customerId, amount.negate(), con);
-                    con.commit();
-                    return newBalance;
-                }
-            }
-            catch (SQLException e) {
-                try {con.rollback();
-                    throw new DatabaseException("withdraw failed: ");
-                }
-                catch (SQLException rb) {
-                    throw new DatabaseException("Rollback failed: ", rb);
-                }
-            }
-        }
-        catch (SQLException e){
-            throw new DatabaseException("Connection to the database failed: ", e);
+
+        BigDecimal newBalance;
+
+        if (amount == null) {
+            throw new InvalidAmountException("Invalid input.");
+        } else if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InsufficientFundsException("You can't withdraw zero or less dollars.");
+        } else if (customerId <= 0) {
+            throw new CustomerNotFoundException("Invalid user ID.");
+        } else {
+            newBalance = CUSTOMER_DAO.adjustBalanceReturningBalance(customerId, amount.negate());
+            return newBalance;
         }
     }
 }

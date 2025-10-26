@@ -9,7 +9,6 @@ public class Customer {
     private String email;
     private BigDecimal balance;
 
-    // Constructor
     public Customer (int id, String name, String card, String email, BigDecimal balance){
         this.customerId = id;
         this.customerName = name;
