@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox minHeight="480.0" minWidth="640.0" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.atm.gui.controller.CustomerMainController">
+   <children>
+      <Label fx:id="welcomeLabel" alignment="CENTER" minHeight="75.0" minWidth="640.0" prefHeight="75.0" prefWidth="640.0" textAlignment="CENTER">
+         <font>
+            <Font name="Modern No. 20" size="32.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="withdrawButton" mnemonicParsing="false" onAction="#handleWithdraw" prefHeight="70.0" prefWidth="100.0">
+               <HBox.margin>
+                  <Insets left="25.0" />
+               </HBox.margin></Button>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="440.0" text="WITHDRAW" textAlignment="CENTER">
+               <font>
+                  <Font name="Modern No. 20" size="38.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets left="30.0" top="20.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="depositButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleDeposit" prefHeight="70.0" prefWidth="100.0">
+               <HBox.margin>
+                  <Insets left="25.0" />
+               </HBox.margin></Button>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="440.0" text="DEPOSIT">
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Modern No. 20" size="38.0" />
+               </font>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+         <padding>
+            <Insets left="30.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="balanceButton" mnemonicParsing="false" onAction="#handleBalance" prefHeight="70.0" prefWidth="100.0">
+               <HBox.margin>
+                  <Insets left="25.0" />
+               </HBox.margin></Button>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="440.0" text="BALANCE" textAlignment="CENTER">
+               <font>
+                  <Font name="Modern No. 20" size="38.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets left="30.0" top="20.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

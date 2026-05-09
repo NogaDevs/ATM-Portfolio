@@ -5,10 +5,10 @@ public class CustomerUpdateRequest {
     private final int customerId;
     private final String newName;
     private final String newCardNumber;
-    private final String newPlanPin;
+    private final char[] newPlanPin;
     private final String newEmail;
 
-    public CustomerUpdateRequest(int customerId, String newName, String newCardNumber, String newPlanPin, String newEmail) {
+    public CustomerUpdateRequest(int customerId, String newName, String newCardNumber, char[] newPlanPin, String newEmail) {
         this.customerId = customerId;
         this.newName = newName;
         this.newCardNumber = newCardNumber;
@@ -19,6 +19,6 @@ public class CustomerUpdateRequest {
     public int getCustomerId(){return this.customerId;}
     public String getNewName(){return this.newName;}
     public String getNewCardNumber(){return this.newCardNumber;}
-    public String getNewPlainPin(){return this.newPlanPin;}
+    public char[] getNewPlainPin(){return this.newPlanPin;}
     public String getNewEmail(){return this.newEmail;}
 }

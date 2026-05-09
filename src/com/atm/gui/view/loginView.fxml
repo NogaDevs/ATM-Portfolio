@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane minHeight="480.0" minWidth="640.0" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.atm.gui.controller.LoginController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <center>
+      <GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" vgap="10.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="200.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="200.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="300.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="300.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="240.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="18.0" prefWidth="95.0" text="CARD NUMBER:" GridPane.halignment="RIGHT">
+               <GridPane.margin>
+                  <Insets right="40.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Modern No. 20" size="12.0" />
+               </font></Label>
+            <TextField id="cardNumberField" fx:id="cardNumberField" alignment="CENTER" maxWidth="-Infinity" prefHeight="26.0" prefWidth="150.0" promptText="1234-5678-9101-1121" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Modern No. 20" size="12.0" />
+               </font></TextField>
+            <Label prefHeight="18.0" prefWidth="60.0" text="PIN CODE:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="40.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Modern No. 20" size="12.0" />
+               </font></Label>
+            <PasswordField id="pinCodeField" fx:id="pinCodeField" alignment="CENTER" maxWidth="-Infinity" prefHeight="26.0" prefWidth="150.0" promptText="(4 DIGITS)" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin></PasswordField>
+            <Button id="submitButton" fx:id="submitButton" mnemonicParsing="false" onAction="#handleLogin" prefHeight="30.0" prefWidth="150.0" text="SUBMIT" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets left="10.0" top="50.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Modern No. 20" size="10.0" />
+               </font></Button>
+            <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="TOP" managed="false" prefHeight="18.0" prefWidth="416.0" textAlignment="CENTER" visible="false" wrapText="true" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>

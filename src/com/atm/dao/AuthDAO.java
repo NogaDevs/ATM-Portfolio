@@ -1,11 +1,14 @@
 package com.atm.dao;
 
-public class AuthDAO {
+import com.atm.dto.AuthRecord;
 
-    private static final String FIND_BY_ID = "SELECT * FROM customers WHERE customer_id = ?";
-    //SQL for password
+public interface AuthDAO {
 
-
-    public boolean loginAuth()
+    AuthRecord findCustomerById(int customerId);
+    AuthRecord findCustomerByCardNumber(String cardNumber);
+    void registerFailedAttempts(int customerId);
+    void resetAttempts(int customerId);
+    void lockCustomer(int customerId);
+    void unlockCustomer(int customerId);
 
 }

@@ -1,30 +1,55 @@
-import com.atm.dao.CustomerDAO;
+import com.atm.dao.AuthDAOImpl;
+import com.atm.dao.CustomerDAOImpl;
 import com.atm.domain.Customer;
+import com.atm.dto.AuthRecord;
 import com.atm.dto.CustomerCreateRequest;
-import com.atm.dto.CustomerUpdateRequest;
-import com.atm.service.AccountService;
-import com.atm.service.CustomerAdminService;
+import com.atm.gui.Gui;
+import com.atm.service.AccountServiceImpl;
+import com.atm.service.CustomerAdminServiceImpl;
+import com.atm.session.SessionManagerImpl;
+import javafx.application.Application;
 
 import java.math.BigDecimal;
 
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        CustomerDAO dao = new CustomerDAO();
-        AccountService accService = new AccountService();
-        CustomerAdminService customerAdminService = new CustomerAdminService();
+//        SessionManagerImpl mockSession = new SessionManagerImpl();
+//        CustomerDAOImpl dao = new CustomerDAOImpl();
+//        AccountServiceImpl accService = new AccountServiceImpl(mockSession);
+//        CustomerAdminServiceImpl customerAdminServiceImpl = new CustomerAdminServiceImpl();
+//        AuthDAOImpl authdao = new AuthDAOImpl();
+//        char[] pinCode = {'1', '2', '3', '4'};
+//        CustomerCreateRequest newUser = new CustomerCreateRequest("Dumb Dumb", "1234567891011121", pinCode, "dumb@dumb.com", BigDecimal.valueOf(25000));
+//        int newUserId = customerAdminServiceImpl.registerCustomer(newUser);
+//        boolean isCorrect = CustomerAdminServiceImpl.validatePin("1989", "$2a$12$wTgfQSzMTdiNOHajLmT6XulrXDPo6BDoMPgm1mp8Dfh3urutD3Ixe");
+//        System.out.println(isCorrect);
 
-        CustomerCreateRequest newUser = new CustomerCreateRequest("DummY tHe Dumbest", "12345678910111213", "1989", "dumb@dummy.com", BigDecimal.valueOf(25000));
-        int newUserId = customerAdminService.registerCustomer(newUser);
-        boolean isCorrect = CustomerAdminService.validatePin("1989", "$2a$12$wTgfQSzMTdiNOHajLmT6XulrXDPo6BDoMPgm1mp8Dfh3urutD3Ixe");
-        System.out.println(isCorrect);
-
-//        Customer readUser = dao.read(dao.getIdByCardNumber("12345678910111213"));
-//        System.out.println(readUser.getName());
-//        System.out.println(readUser.getEmail());
+//        AuthRecord readUser = authdao.findCustomerByCardNumber(("2424-2424-2424-2424"));
+//        Customer user = dao.read(readUser.getCustomerId());
+//        System.out.println(user.getEmail());
+//        System.out.println(user.getName());
 //        CustomerUpdateRequest updateUserRequest = new CustomerUpdateRequest(readUser.getId(), "Dumby the Dumbest", "31211101987654321", "1999", "dumb@dummy.com");
 //        customerAdminService.updateCustomer(updateUserRequest);
 
-        System.out.println(customerAdminService.deleteCustomer(newUserId));
+//        System.out.println(customerAdminServiceImpl.deleteCustomer(newUserId));
+
+//        AuthRecord record = authdao.findCustomerById(3);
+//        authdao.unlockCustomer(3);
+
+//        mockSession.login(3, Role.CUSTOMER);
+//
+//        System.out.println("ID: " + mockSession.getActiveSession().getCustomerId() + "\nRole: " + mockSession.getActiveSession().getRole() + "\nLogin time: " + mockSession.getActiveSession().getLoginTime() + "\nLast update: " + mockSession.getActiveSession().getLastUpdate() + "\nLogout time: " + mockSession.getActiveSession().getTimeout());
+//        if (mockSession.getActiveSession().getTimeout().isBefore(LocalDateTime.now())) {
+//            System.out.println("Session timed out!");
+//        } else {
+//            System.out.println("Not timed out");
+//        }
+//        Thread.sleep(3000);
+//        mockSession.touch();
+//        System.out.println("ID: " + mockSession.getActiveSession().getCustomerId() + "\nRole: " + mockSession.getActiveSession().getRole() + "\nLogin time: " + mockSession.getActiveSession().getLoginTime() + "\nLast update: " + mockSession.getActiveSession().getLastUpdate() + "\nLogout time: " + mockSession.getActiveSession().getTimeout());
+
+        Application.launch(Gui.class, args);
+
     }
 }
