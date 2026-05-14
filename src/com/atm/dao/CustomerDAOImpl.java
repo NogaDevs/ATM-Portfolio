@@ -109,7 +109,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             first = false;
         }
         if (pinHash != null && !pinHash.isBlank()) {
-            updateSql.append(first ? "" : ", ").append("pinHash = ?");
+            updateSql.append(first ? "" : ", ").append("pin_hash = ?");
             first = false;
         }
         if (first) {

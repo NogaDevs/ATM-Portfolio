@@ -3,6 +3,7 @@ import com.atm.dao.CustomerDAOImpl;
 import com.atm.domain.Customer;
 import com.atm.dto.AuthRecord;
 import com.atm.dto.CustomerCreateRequest;
+import com.atm.dto.CustomerUpdateRequest;
 import com.atm.gui.Gui;
 import com.atm.service.AccountServiceImpl;
 import com.atm.service.CustomerAdminServiceImpl;
@@ -25,17 +26,20 @@ public class Main {
 //        boolean isCorrect = CustomerAdminServiceImpl.validatePin("1989", "$2a$12$wTgfQSzMTdiNOHajLmT6XulrXDPo6BDoMPgm1mp8Dfh3urutD3Ixe");
 //        System.out.println(isCorrect);
 
-//        AuthRecord readUser = authdao.findCustomerByCardNumber(("2424-2424-2424-2424"));
+//        AuthRecord readUser = authdao.findCustomerByCardNumber(("31211101987654321"));
 //        Customer user = dao.read(readUser.getCustomerId());
 //        System.out.println(user.getEmail());
 //        System.out.println(user.getName());
-//        CustomerUpdateRequest updateUserRequest = new CustomerUpdateRequest(readUser.getId(), "Dumby the Dumbest", "31211101987654321", "1999", "dumb@dummy.com");
-//        customerAdminService.updateCustomer(updateUserRequest);
+//        CustomerUpdateRequest updateUserRequest = new CustomerUpdateRequest(user.getId(), "Taki Sayuri", "2424242424242424", "1234".toCharArray(), "taki_sayuri@dummy.com");
+//        customerAdminServiceImpl.updateCustomer(updateUserRequest);
+//        AuthRecord readUser2 = authdao.findCustomerByCardNumber(("2424242424242424"));
+//        Customer user2 = dao.read(readUser2.getCustomerId());
+//        System.out.println(user2.getEmail());
+//        System.out.println(user2.getName());
 
 //        System.out.println(customerAdminServiceImpl.deleteCustomer(newUserId));
 
 //        AuthRecord record = authdao.findCustomerById(3);
-//        authdao.unlockCustomer(3);
 
 //        mockSession.login(3, Role.CUSTOMER);
 //

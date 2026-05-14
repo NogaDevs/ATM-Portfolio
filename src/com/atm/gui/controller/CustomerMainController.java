@@ -16,6 +16,7 @@ public class CustomerMainController {
 
 
     @FXML private Label welcomeLabel;
+    @FXML private Button logoutButton;
     @FXML private Button withdrawButton;
     @FXML private Button depositButton;
     @FXML private Button balanceButton;
@@ -39,6 +40,11 @@ public class CustomerMainController {
         // Initialize UI-only defaults here
     }
 
+        @FXML private void handleLogoutButton(){
+        sessionManager.logout();
+        navigator.showLoginView();
+    }
+
     @FXML
     private void handleWithdraw() {
         sessionManager.requireActive();
@@ -50,7 +56,7 @@ public class CustomerMainController {
     private void handleDeposit() {
         sessionManager.requireActive();
         sessionManager.touch();
-        System.out.println("Not implemented");
+        navigator.showDepositView();
     }
 
     @FXML

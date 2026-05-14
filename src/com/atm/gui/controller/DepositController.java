@@ -1,6 +1,5 @@
 package com.atm.gui.controller;
 
-import com.atm.exception.InsufficientFundsException;
 import com.atm.exception.InvalidAmountException;
 import com.atm.gui.Navigator;
 import com.atm.service.AccountServiceImpl;
@@ -16,7 +15,7 @@ import com.atm.util.ControllerUtils;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class WithdrawController {
+public class DepositController {
     private AccountServiceImpl accountService;
     private SessionManagerImpl sessionManager;
     private Navigator navigator;
@@ -27,6 +26,7 @@ public class WithdrawController {
         this.sessionManager = Objects.requireNonNull(sessionManager);
         this.navigator = Objects.requireNonNull(navigator);
     }
+
     @FXML private TextField inputField;
     @FXML private Label messageLabel;
     @FXML private Label errorLabel;
@@ -34,7 +34,8 @@ public class WithdrawController {
     @FXML private Button logoutButton;
     @FXML private Button actionButton;
 
-    @FXML public void initialize() {
+    @FXML
+    public void initialize() {
         setError(null);
         ControllerUtils.configureInputFieldFormatter(inputField, state);
     }
@@ -52,10 +53,10 @@ public class WithdrawController {
             return;
         }
 
-        BigDecimal withdrawAmount = BigDecimal.valueOf(Long.parseLong(onlyDigitString) / 100.0);
+        BigDecimal depositAmount = BigDecimal.valueOf(Long.parseLong(onlyDigitString) / 100.0);
 
         try {
-            BigDecimal result = accountService.withdraw(sessionManager.getActiveSession().getCustomerId(), withdrawAmount);
+            BigDecimal result = accountService.deposit(sessionManager.getActiveSession().getCustomerId(), depositAmount);
             inputField.setDisable(true);
             actionButton.setDisable(true);
             messageLabel.setText("Transaction finished successfully.\nYour new balance is: " + result + "€");
@@ -63,11 +64,7 @@ public class WithdrawController {
         }
         catch (NumberFormatException e) {
             state.set(OperationState.ERROR);
-            showError("Withdraw field cannot be empty.");
-        }
-        catch (InsufficientFundsException e) {
-            state.set(OperationState.ERROR);
-            showError("Insufficient funds. Please try again with a lower amount.");
+            showError("Deposit field cannot be empty.");
         }
         catch (InvalidAmountException e) {
             state.set(OperationState.ERROR);
@@ -85,7 +82,7 @@ public class WithdrawController {
             actionButton.setDisable(false);
         } else {
             inputField.setVisible(true);
-            actionButton.setText("Withdraw");
+            actionButton.setText("Deposit");
             actionButton.setOnAction(event -> handleActionButton());
         }
     }
@@ -109,11 +106,10 @@ public class WithdrawController {
         errorLabel.setManaged(hasError);
     }
 
-    private void showError(String msg) {
-        errorLabel.setText(msg == null ? "" : msg);
+    private void showError(String msg){
+        errorLabel.setText(msg == null ? "": msg);
         boolean hasError = msg != null && !msg.isBlank();
         errorLabel.setVisible(hasError);
         errorLabel.setManaged(hasError);
     }
-
 }

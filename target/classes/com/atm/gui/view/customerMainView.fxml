@@ -9,11 +9,26 @@
 
 <VBox minHeight="480.0" minWidth="640.0" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.atm.gui.controller.CustomerMainController">
    <children>
-      <Label fx:id="welcomeLabel" alignment="CENTER" minHeight="75.0" minWidth="640.0" prefHeight="75.0" prefWidth="640.0" textAlignment="CENTER">
-         <font>
-            <Font name="Modern No. 20" size="32.0" />
-         </font>
-      </Label>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="welcomeLabel" alignment="CENTER" minHeight="75.0" minWidth="390.0" prefHeight="75.0" prefWidth="520.0" textAlignment="CENTER">
+               <font>
+                  <Font name="Modern No. 20" size="43.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Label>
+            <Button fx:id="handleLogout" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="45.0" prefWidth="70.0" text="QUIT" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets left="5.0" right="-20.0" top="-20.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Modern No. 20" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
          <children>
             <Button fx:id="withdrawButton" mnemonicParsing="false" onAction="#handleWithdraw" prefHeight="70.0" prefWidth="100.0">

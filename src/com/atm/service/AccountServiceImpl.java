@@ -44,10 +44,12 @@ public class AccountServiceImpl implements AccountService {
 
         if (amount == null) {
             throw new InvalidAmountException("Invalid input.");
-        } else if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new InsufficientFundsException("You can't withdraw zero or less dollars.");
+        } else if (amount.compareTo(BigDecimal.valueOf(0.01)) < 0) {
+            throw new InvalidAmountException("You can't withdraw less than 1 cent.");
         } else if (customerId <= 0) {
             throw new CustomerNotFoundException("Invalid user ID.");
+        } else if (amount.compareTo(CUSTOMER_DAO.getBalanceById(customerId)) > 0) {
+            throw new InsufficientFundsException("Insufficient funds.");
         } else {
             newBalance = CUSTOMER_DAO.adjustBalanceReturningBalance(customerId, amount.negate());
             return newBalance;

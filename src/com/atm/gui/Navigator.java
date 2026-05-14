@@ -1,6 +1,7 @@
 package com.atm.gui;
 
 import com.atm.gui.controller.CustomerMainController;
+import com.atm.gui.controller.DepositController;
 import com.atm.gui.controller.LoginController;
 import com.atm.gui.controller.WithdrawController;
 import com.atm.service.AccountServiceImpl;
@@ -71,11 +72,26 @@ public class Navigator {
             scene.setRoot(root);
 
             WithdrawController controller = loader.getController();
-            controller.setServices(authService, sessionManager, this, accountService);
+            controller.setServices(sessionManager, this, accountService);
 
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException("Failed to load withdrawView.fxml", e);
+        }
+    }
+
+    public void showDepositView() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/atm/gui/view/depositView.fxml"));
+        try {
+            Parent root = loader.load();
+            scene.setRoot(root);
+
+            DepositController controller = loader.getController();
+            controller.setServices(sessionManager, this, accountService);
+
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load depositView.fxml", e);
         }
     }
 

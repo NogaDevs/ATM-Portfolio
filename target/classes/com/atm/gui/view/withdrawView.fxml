@@ -15,12 +15,12 @@
    <children>
       <HBox alignment="TOP_CENTER" prefHeight="54.0" prefWidth="640.0">
          <children>
-            <Button fx:id="backButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="63.0" prefWidth="64.0" text="BACK">
+            <Button fx:id="backButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="63.0" prefWidth="64.0" text="BACK">
                <HBox.margin>
                   <Insets right="220.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="logoutButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="58.0" prefWidth="72.0" text="LOGOUT">
+            <Button fx:id="logoutButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="58.0" prefWidth="72.0" text="QUIT">
                <HBox.margin>
                   <Insets left="220.0" />
                </HBox.margin>
@@ -62,7 +62,7 @@
                   <Font name="Modern No. 20" size="12.0" />
                </font>
             </TextField>
-            <Button fx:id="actionButton" layoutX="261.0" layoutY="63.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Withdraw">
+            <Button fx:id="actionButton" layoutX="261.0" layoutY="63.0" mnemonicParsing="false" onAction="#handleActionButton" prefHeight="30.0" prefWidth="100.0" text="Withdraw">
                <font>
                   <Font name="Modern No. 20" size="12.0" />
                </font>

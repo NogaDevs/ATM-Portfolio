@@ -39,6 +39,10 @@ public class LoginController {
         String cardNumber = cardNumberField.getText() == null ? "" : safeDigitTrim(cardNumberField.getText());
         char[] pinCode = pinCodeField.getText() == null ? "".toCharArray() : safeDigitTrim(pinCodeField.getText()).toCharArray();
 
+        if (cardNumber.isEmpty() || pinCode.length == 0) {
+            showError("Invalid input. Please enter a valid card number and PIN.");
+            return;
+        }
         try {
             authService.loginByCard(cardNumber, pinCode);
             sessionManager.touch();
