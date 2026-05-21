@@ -4,6 +4,7 @@ import com.atm.exception.InvalidAmountException;
 import com.atm.gui.Navigator;
 import com.atm.service.AccountServiceImpl;
 import com.atm.session.SessionManagerImpl;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import com.atm.util.ControllerUtils;
+import javafx.util.Duration;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -20,6 +22,7 @@ public class DepositController {
     private SessionManagerImpl sessionManager;
     private Navigator navigator;
     private final ObjectProperty<OperationState> state = new SimpleObjectProperty<>(OperationState.IDLE);
+    private final PauseTransition clickLock = new PauseTransition(Duration.seconds(5));
 
     public void setServices(SessionManagerImpl sessionManager, Navigator navigator, AccountServiceImpl accountService) {
         this.accountService = Objects.requireNonNull(accountService);
@@ -38,13 +41,26 @@ public class DepositController {
     public void initialize() {
         setError(null);
         ControllerUtils.configureInputFieldFormatter(inputField, state);
+
+        actionButton.setOnAction(event -> {
+            if (actionButton.isDisable()) return;
+
+            setError(null);
+
+            actionButton.setDisable(true);
+            inputField.setDisable(true);
+            actionButton.setText("Processing...");
+
+            PauseTransition wait = new PauseTransition(Duration.seconds(2));
+            wait.setOnFinished(e -> handleActionButton());
+            wait.play();
+            //TODO: Make this a function named beginTransactionFlow in utils and use it in deposit and withrdaw. Try to fix redo transaction when failing.
+        });
     }
 
     @FXML
     private void handleActionButton(){
         ControllerUtils.refresh(sessionManager);
-        state.set(OperationState.PROCESSING);
-        setError(null);
 
         String onlyDigitString = inputField.getText().replaceAll("\\D", "");
         if (onlyDigitString.isEmpty()) {
@@ -57,8 +73,6 @@ public class DepositController {
 
         try {
             BigDecimal result = accountService.deposit(sessionManager.getActiveSession().getCustomerId(), depositAmount);
-            inputField.setDisable(true);
-            actionButton.setDisable(true);
             messageLabel.setText("Transaction finished successfully.\nYour new balance is: " + result + "€");
             state.set(OperationState.SUCCESS);
         }
@@ -82,6 +96,8 @@ public class DepositController {
             actionButton.setDisable(false);
         } else {
             inputField.setVisible(true);
+            inputField.setDisable(false);
+            actionButton.setDisable(false);
             actionButton.setText("Deposit");
             actionButton.setOnAction(event -> handleActionButton());
         }

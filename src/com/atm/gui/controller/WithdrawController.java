@@ -5,6 +5,7 @@ import com.atm.exception.InvalidAmountException;
 import com.atm.gui.Navigator;
 import com.atm.service.AccountServiceImpl;
 import com.atm.session.SessionManagerImpl;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import com.atm.util.ControllerUtils;
+import javafx.util.Duration;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -37,13 +39,26 @@ public class WithdrawController {
     @FXML public void initialize() {
         setError(null);
         ControllerUtils.configureInputFieldFormatter(inputField, state);
+
+        actionButton.setOnAction(event -> {
+            if (actionButton.isDisable()) return;
+
+            setError(null);
+
+            actionButton.setDisable(true);
+            inputField.setDisable(true);
+            actionButton.setText("Processing...");
+
+            PauseTransition wait = new PauseTransition(Duration.seconds(2));
+            wait.setOnFinished(e -> handleActionButton());
+            wait.play();
+        });
     }
 
     @FXML
     private void handleActionButton(){
         ControllerUtils.refresh(sessionManager);
         state.set(OperationState.PROCESSING);
-        setError(null);
 
         String onlyDigitString = inputField.getText().replaceAll("\\D", "");
         if (onlyDigitString.isEmpty()) {
@@ -56,10 +71,9 @@ public class WithdrawController {
 
         try {
             BigDecimal result = accountService.withdraw(sessionManager.getActiveSession().getCustomerId(), withdrawAmount);
-            inputField.setDisable(true);
-            actionButton.setDisable(true);
             messageLabel.setText("Transaction finished successfully.\nYour new balance is: " + result + "€");
             state.set(OperationState.SUCCESS);
+            Thread.sleep(2000);
         }
         catch (NumberFormatException e) {
             state.set(OperationState.ERROR);
@@ -85,6 +99,8 @@ public class WithdrawController {
             actionButton.setDisable(false);
         } else {
             inputField.setVisible(true);
+            inputField.setDisable(false);
+            actionButton.setDisable(false);
             actionButton.setText("Withdraw");
             actionButton.setOnAction(event -> handleActionButton());
         }
