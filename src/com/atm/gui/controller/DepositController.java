@@ -22,7 +22,6 @@ public class DepositController {
     private SessionManagerImpl sessionManager;
     private Navigator navigator;
     private final ObjectProperty<OperationState> state = new SimpleObjectProperty<>(OperationState.IDLE);
-    private final PauseTransition clickLock = new PauseTransition(Duration.seconds(5));
 
     public void setServices(SessionManagerImpl sessionManager, Navigator navigator, AccountServiceImpl accountService) {
         this.accountService = Objects.requireNonNull(accountService);
@@ -41,21 +40,24 @@ public class DepositController {
     public void initialize() {
         setError(null);
         ControllerUtils.configureInputFieldFormatter(inputField, state);
+        actionButton.setOnAction(event -> beginTransactionFlow());
+    }
 
-        actionButton.setOnAction(event -> {
-            if (actionButton.isDisable()) return;
+    private void beginTransactionFlow() {
+        if (actionButton.isDisable()) {
+            return;
+        }
 
-            setError(null);
+        setError(null);
+        state.set(OperationState.PROCESSING);
+        actionButton.setText("Processing...");
 
-            actionButton.setDisable(true);
-            inputField.setDisable(true);
-            actionButton.setText("Processing...");
+        actionButton.setDisable(true);
+        inputField.setDisable(true);
 
-            PauseTransition wait = new PauseTransition(Duration.seconds(2));
-            wait.setOnFinished(e -> handleActionButton());
-            wait.play();
-            //TODO: Make this a function named beginTransactionFlow in utils and use it in deposit and withrdaw. Try to fix redo transaction when failing.
-        });
+        PauseTransition wait = new PauseTransition(Duration.seconds(2));
+        wait.setOnFinished(e -> handleActionButton());
+        wait.play();
     }
 
     @FXML
@@ -66,6 +68,7 @@ public class DepositController {
         if (onlyDigitString.isEmpty()) {
             state.set(OperationState.ERROR);
             showError("Invalid input. Please enter a valid amount.");
+            resetDepositControls();
             return;
         }
 
@@ -95,12 +98,16 @@ public class DepositController {
             actionButton.setOnAction(event -> handleBackButton());
             actionButton.setDisable(false);
         } else {
-            inputField.setVisible(true);
-            inputField.setDisable(false);
-            actionButton.setDisable(false);
-            actionButton.setText("Deposit");
-            actionButton.setOnAction(event -> handleActionButton());
+            resetDepositControls();
         }
+    }
+
+    private void resetDepositControls() {
+        inputField.setVisible(true);
+        inputField.setDisable(false);
+        actionButton.setDisable(false);
+        actionButton.setText("Deposit");
+        actionButton.setOnAction(event -> beginTransactionFlow());
     }
 
     @FXML

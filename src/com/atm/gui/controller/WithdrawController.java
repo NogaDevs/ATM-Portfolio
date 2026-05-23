@@ -39,31 +39,35 @@ public class WithdrawController {
     @FXML public void initialize() {
         setError(null);
         ControllerUtils.configureInputFieldFormatter(inputField, state);
+        actionButton.setOnAction(event -> beginTransactionFlow());
+    }
 
-        actionButton.setOnAction(event -> {
-            if (actionButton.isDisable()) return;
+    private void beginTransactionFlow() {
+        if (actionButton.isDisable()) {
+            return;
+        }
 
-            setError(null);
+        setError(null);
+        state.set(OperationState.PROCESSING);
+        actionButton.setText("Processing...");
 
-            actionButton.setDisable(true);
-            inputField.setDisable(true);
-            actionButton.setText("Processing...");
+        actionButton.setDisable(true);
+        inputField.setDisable(true);
 
-            PauseTransition wait = new PauseTransition(Duration.seconds(2));
-            wait.setOnFinished(e -> handleActionButton());
-            wait.play();
-        });
+        PauseTransition wait = new PauseTransition(Duration.seconds(2));
+        wait.setOnFinished(e -> handleActionButton());
+        wait.play();
     }
 
     @FXML
     private void handleActionButton(){
         ControllerUtils.refresh(sessionManager);
-        state.set(OperationState.PROCESSING);
 
         String onlyDigitString = inputField.getText().replaceAll("\\D", "");
         if (onlyDigitString.isEmpty()) {
             state.set(OperationState.ERROR);
             showError("Invalid input. Please enter a valid amount.");
+            resetWithdrawControls();
             return;
         }
 
@@ -98,12 +102,16 @@ public class WithdrawController {
             actionButton.setOnAction(event -> handleBackButton());
             actionButton.setDisable(false);
         } else {
-            inputField.setVisible(true);
-            inputField.setDisable(false);
-            actionButton.setDisable(false);
-            actionButton.setText("Withdraw");
-            actionButton.setOnAction(event -> handleActionButton());
+            resetWithdrawControls();
         }
+    }
+
+    private void resetWithdrawControls() {
+        inputField.setVisible(true);
+        inputField.setDisable(false);
+        actionButton.setDisable(false);
+        actionButton.setText("Withdraw");
+        actionButton.setOnAction(event -> beginTransactionFlow());
     }
 
     @FXML
