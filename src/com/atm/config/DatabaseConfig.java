@@ -1,4 +1,4 @@
-package resources;
+package com.atm.config;
 
 public class DatabaseConfig {
 

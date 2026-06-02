@@ -1,6 +1,6 @@
 package com.atm.dao;
 
-import resources.DatabaseConfig;
+import com.atm.config.DatabaseConfig;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
