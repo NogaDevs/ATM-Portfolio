@@ -45,11 +45,13 @@
       <Separator prefWidth="200.0" />
       <AnchorPane prefHeight="267.0" prefWidth="640.0">
          <children>
-            <Label fx:id="balanceLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="99.0" prefHeight="55.0" prefWidth="600.0" textAlignment="CENTER">
+            <Label fx:id="balanceLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="64.0" prefHeight="55.0" prefWidth="600.0" textAlignment="CENTER">
                <font>
                   <Font name="Modern No. 20" size="64.0" />
                </font>
             </Label>
+            <Button fx:id="depositButton" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="169.0" mnemonicParsing="false" onAction="#handleDeposit" prefHeight="55.0" prefWidth="90.0" text="DEPOSIT" />
+            <Button fx:id="withdrawButton" alignment="CENTER" contentDisplay="CENTER" layoutX="376.0" layoutY="169.0" mnemonicParsing="false" onAction="#handleWithdraw" prefHeight="55.0" prefWidth="90.0" text="WITHDRAW" />
          </children>
       </AnchorPane>
    </children>

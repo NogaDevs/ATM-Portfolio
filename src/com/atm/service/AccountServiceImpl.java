@@ -62,7 +62,6 @@ public class AccountServiceImpl implements AccountService {
         sessionManager.touch();
         return CUSTOMER_DAO.getBalanceById(customerId);
 
-        //TODO: Trabajando en la pantalla de balance. Falta funcion y Navigator.
     }
 }
 

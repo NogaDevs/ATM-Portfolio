@@ -122,8 +122,7 @@ public class WithdrawController {
 
     @FXML
     private void handleLogoutButton(){
-        sessionManager.logout();
-        navigator.showLoginView();
+        navigator.showLogoutTransactionView();
     }
 
     private void setError(String message) {

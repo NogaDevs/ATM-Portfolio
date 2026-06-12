@@ -1,9 +1,6 @@
 package com.atm.gui;
 
-import com.atm.gui.controller.CustomerMainController;
-import com.atm.gui.controller.DepositController;
-import com.atm.gui.controller.LoginController;
-import com.atm.gui.controller.WithdrawController;
+import com.atm.gui.controller.*;
 import com.atm.service.AccountServiceImpl;
 import com.atm.service.AuthServiceImpl;
 import com.atm.session.SessionManagerImpl;
@@ -92,6 +89,36 @@ public class Navigator {
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException("Failed to load depositView.fxml", e);
+        }
+    }
+
+    public void showBalanceView() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/atm/gui/view/balanceView.fxml"));
+        try {
+            Parent  root = loader.load();
+            scene.setRoot(root);
+
+            BalanceController controller = loader.getController();
+            controller.setServices(sessionManager, this, accountService);
+
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load balanceView.fxml", e);
+        }
+    }
+
+    public void showLogoutTransactionView() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/atm/gui/view/logoutTransitionView.fxml"));
+        try {
+            Parent  root = loader.load();
+            scene.setRoot(root);
+
+            logoutTransitionController controller = loader.getController();
+            controller.setServices(sessionManager, this);
+
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load logoutTransitionView.fxml", e);
         }
     }
 

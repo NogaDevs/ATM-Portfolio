@@ -23,7 +23,9 @@ public class DepositController {
     private Navigator navigator;
     private final ObjectProperty<OperationState> state = new SimpleObjectProperty<>(OperationState.IDLE);
 
-    public void setServices(SessionManagerImpl sessionManager, Navigator navigator, AccountServiceImpl accountService) {
+    public void setServices(SessionManagerImpl sessionManager,
+                            Navigator navigator,
+                            AccountServiceImpl accountService) {
         this.accountService = Objects.requireNonNull(accountService);
         this.sessionManager = Objects.requireNonNull(sessionManager);
         this.navigator = Objects.requireNonNull(navigator);
@@ -118,8 +120,7 @@ public class DepositController {
 
     @FXML
     private void handleLogoutButton(){
-        sessionManager.logout();
-        navigator.showLoginView();
+        navigator.showLogoutTransactionView();
     }
 
     private void setError(String message) {

@@ -1,18 +1,12 @@
 package com.atm.gui.controller;
 
-import com.atm.exception.InvalidAmountException;
 import com.atm.gui.Navigator;
 import com.atm.service.AccountServiceImpl;
 import com.atm.session.SessionManagerImpl;
 import com.atm.util.ControllerUtils;
-import javafx.animation.PauseTransition;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.util.Duration;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -22,19 +16,30 @@ public class BalanceController {
     private SessionManagerImpl sessionManager;
     private Navigator navigator;
 
-    public void setServices(SessionManagerImpl sessionManager, Navigator navigator, AccountServiceImpl accountService) {
+
+    public void setServices(SessionManagerImpl sessionManager,
+                            Navigator navigator,
+                            AccountServiceImpl accountService) {
         this.accountService = Objects.requireNonNull(accountService);
         this.sessionManager = Objects.requireNonNull(sessionManager);
         this.navigator = Objects.requireNonNull(navigator);
+
+        showBalance();
     }
 
     @FXML private Label balanceLabel;
     @FXML private Button backButton;
     @FXML private Button logoutButton;
+    @FXML private Button depositButton;
+    @FXML private Button withdrawButton;
 
     @FXML
     public void initialize() {
-        accountService.
+    }
+
+    private void showBalance() {
+        BigDecimal balance = new BigDecimal(String.valueOf(accountService.balance(sessionManager.getActiveSession().getCustomerId())));
+        balanceLabel.setText(balance + "€");
     }
 
     @FXML
@@ -44,9 +49,20 @@ public class BalanceController {
     }
 
     @FXML
+    private void handleWithdraw(){
+        ControllerUtils.refresh(sessionManager);
+        navigator.showWithdrawView();
+    }
+
+    @FXML
+    private void handleDeposit(){
+        ControllerUtils.refresh(sessionManager);
+        navigator.showDepositView();
+    }
+
+    @FXML
     private void handleLogoutButton(){
-        sessionManager.logout();
-        navigator.showLoginView();
+        navigator.showLogoutTransactionView();
     }
 
 }

@@ -40,9 +40,8 @@ public class CustomerMainController {
         // Initialize UI-only defaults here
     }
 
-        @FXML private void handleLogoutButton(){
-        sessionManager.logout();
-        navigator.showLoginView();
+    @FXML private void handleLogoutButton(){
+        navigator.showLogoutTransactionView();
     }
 
     @FXML
@@ -63,7 +62,7 @@ public class CustomerMainController {
     private void handleBalance() {
         sessionManager.requireActive();
         sessionManager.touch();
-        System.out.println("Not implemented");
+        navigator.showBalanceView();
     }
 
     private void refresh() {
