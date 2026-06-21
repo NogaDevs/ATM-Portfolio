@@ -9,5 +9,8 @@
         <module name="atm-app" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="atm-app" target="24" />
+    </bytecodeTargetLevel>
   </component>
 </project>

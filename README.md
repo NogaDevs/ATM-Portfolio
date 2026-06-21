@@ -4,6 +4,10 @@ ATM APP is an in-progress Java portfolio project that models a simple ATM workfl
 
 The goal of this project is to demonstrate practical backend and desktop application skills: authentication flow, database access with JDBC, service-layer validation, custom exceptions, session handling, and a JavaFX UI split into FXML views and controllers.
 
+## Application Preview
+
+![ATM APP walkthrough](assets/Animation.gif)
+
 ## Project Status
 
 This project is still under active development. It is functional in parts, but it is not presented as a finished banking product.
@@ -22,7 +26,6 @@ Currently implemented:
 
 Still in progress:
 
-- Balance screen navigation is not fully wired into the main menu
 - Database schema and seed scripts are not included yet
 - Automated tests are not included yet
 - Admin/customer management UI is not implemented yet
@@ -40,9 +43,7 @@ Still in progress:
 ## Project Structure
 
 ```text
-src/
-  Main.java
-  com/atm/
+src/main/java/com/atm/
     config/       Database configuration
     dao/          JDBC data access objects
     domain/       Domain models
@@ -52,6 +53,8 @@ src/
     service/      Business logic
     session/      Session lifecycle handling
     util/         Validation, security, and helper utilities
+src/main/resources/com/atm/gui/view/
+    JavaFX FXML views
 ```
 
 ## Requirements
@@ -82,7 +85,7 @@ Run the JavaFX application:
 mvn javafx:run
 ```
 
-The app expects a PostgreSQL database with a `customers` table compatible with the DAO queries in `src/com/atm/dao`. A schema file has not been added yet, so database setup is currently manual.
+The app expects a PostgreSQL database with a `customers` table compatible with the DAO queries in `src/main/java/com/atm/dao`. A schema file has not been added yet, so database setup is currently manual.
 
 ## Portfolio Notes
 
